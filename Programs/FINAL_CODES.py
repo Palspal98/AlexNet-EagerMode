@@ -22,12 +22,13 @@ tf.enable_eager_execution()
 import sys
 import time
 
-root = './data_t'
+data_root ='.'
+root = data_root+'/results'
 model_path = root+'/model/'
 
 if sys.argv[2]=='cifar10':
     lr=1e-5
-    dataset = data_loader.cifar_10_dataset(root+'/dataset/cifar-10-batches-py/',buffer_size=1024,batch_size=128)
+    dataset = data_loader.cifar_10_dataset(data_root+'/dataset/cifar-10-batches-py/',buffer_size=1024,batch_size=128)
     if sys.argv[1]=='0':
         f = open(root+'/logs/AlexNet_cifar10.log','w')
         model_name = 'AlexNetAtt_cifar10'
@@ -50,7 +51,7 @@ if sys.argv[2]=='cifar10':
 
 elif sys.argv[2]=='cifar100':
     lr=1e-5
-    dataset = data_loader.cifar_100_dataset(root+'/dataset/cifar-100-python/',buffer_size=1024,batch_size=128)
+    dataset = data_loader.cifar_100_dataset(data_root+'/dataset/cifar-100-python/',buffer_size=1024,batch_size=128)
     if sys.argv[1]=='0':
         f = open(root+'/logs/AlexNet_cifar100.log','w')
         model_name = 'AlexNetAtt_cifar100'
@@ -73,7 +74,7 @@ elif sys.argv[2]=='cifar100':
 
 elif sys.argv[2]=='shvn':
     lr=1e-6
-    dataset = data_loader.shvn_dataset(root+'/dataset/SHVN/',buffer_size=1,batch_size=128,classes=10,prefetch=3)
+    dataset = data_loader.shvn_dataset(data_root+'/dataset/SHVN/',buffer_size=1,batch_size=128,classes=10,prefetch=3)
     if sys.argv[1]=='0':
         f = open(root+'/logs/AlexNet_shvn.log','w')
         model_name = 'AlexNetAtt_shvn'
@@ -97,7 +98,7 @@ elif sys.argv[2]=='shvn':
 
 elif sys.argv[2]=='cub':
     lr=1e-5
-    dataset = data_loader.cub_dataset(root+'/dataset/CUB_200_2011/',buffer_size=256,batch_size=128,classes=200,prefetch=3)
+    dataset = data_loader.cub_dataset(data_root+'/dataset/CUB_200_2011/',buffer_size=256,batch_size=128,classes=200,prefetch=3)
     if sys.argv[1]=='0':
         f = open(root+'/logs/AlexNet_cub.log','w')
         model_name = 'AlexNetAtt_cub'
