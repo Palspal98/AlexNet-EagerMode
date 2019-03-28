@@ -22,96 +22,97 @@ tf.enable_eager_execution()
 import sys
 import time
 
-data_root ='.'
-root = data_root+'/results'
-model_path = root+'/model/'
+data_root = sys.argv[3]
+root = sys.argv[4]
+model_path = sys.argv[5]
+data_path = sys.argv[6]
 
 if sys.argv[2]=='cifar10':
     lr=1e-5
-    dataset = data_loader.cifar_10_dataset(data_root+'/dataset/cifar-10-batches-py/',buffer_size=1024,batch_size=128)
+    dataset = data_loader.cifar_10_dataset(data_path+'/cifar-10-batches-py/',buffer_size=1024,batch_size=128)
     if sys.argv[1]=='0':
-        f = open(root+'/logs/AlexNet_cifar10.log','w')
-        model_name = 'AlexNetAtt_cifar10'
+        f = open(root+'/AlexNet.log','w')
+        model_name = 'AlexNetAtt'
         alexattnet = model.AlexNet(classes=10)
 
     if sys.argv[1]=='1':
-        f = open(root+'/logs/AlexNetAttDSSpatial_cifar10.log','w')
-        model_name = 'AlexNetAttDSSpatial_cifar10'
+        f = open(root+'/AlexNetAttDSSpatial.log','w')
+        model_name = 'AlexNetAttDSSpatial'
         alexattnet = model.AlexAttNet(classes=10)
 
     elif sys.argv[1]=='2':
-        f = open(root+'/logs/AlexNetAttPCSpatial_cifar10.log','w')
-        model_name = 'AlexNetAttPCSpatial_cifar10'
+        f = open(root+'/AlexNetAttPCSpatial.log','w')
+        model_name = 'AlexNetAttPCSpatial'
         alexattnet = model.AlexNetAttSpatial(classes=10)
     
     elif sys.argv[1]=='3':
-        f = open(root+'/logs/AlexNetGAP_cifar10.log','w')
-        model_name = 'AlexNetAttGAP_cifar10'
+        f = open(root+'/AlexNetGAP.log','w')
+        model_name = 'AlexNetAttGAP'
         alexattnet = model.AlexNetGAP(classes=10)
 
 elif sys.argv[2]=='cifar100':
     lr=1e-5
-    dataset = data_loader.cifar_100_dataset(data_root+'/dataset/cifar-100-python/',buffer_size=1024,batch_size=128)
+    dataset = data_loader.cifar_100_dataset(data_path+'/cifar-100-python/',buffer_size=1024,batch_size=128)
     if sys.argv[1]=='0':
-        f = open(root+'/logs/AlexNet_cifar100.log','w')
-        model_name = 'AlexNetAtt_cifar100'
+        f = open(root+'/AlexNet.log','w')
+        model_name = 'AlexNetAtt'
         alexattnet = model.AlexNet(classes=100)
 
     if sys.argv[1]=='1':
-        f = open(root+'/logs/AlexNetAttDSSpatial_cifar100.log','w')
-        model_name = 'AlexNetAttDSSpatial_cifar100'
+        f = open(root+'/AlexNetAttDSSpatial0.log','w')
+        model_name = 'AlexNetAttDSSpatial'
         alexattnet = model.AlexAttNet(classes=100)
 
     elif sys.argv[1]=='2':
-        f = open(root+'/logs/AlexNetAttPCSpatial_cifar100.log','w')
-        model_name = 'AlexNetAttPCSpatial_cifar100'
+        f = open(root+'/AlexNetAttPCSpatial.log','w')
+        model_name = 'AlexNetAttPCSpatial'
         alexattnet = model.AlexNetAttSpatial(classes=100)
     
     elif sys.argv[1]=='3':
-        f = open(root+'/logs/AlexNetGAP_cifar100.log','w')
-        model_name = 'AlexNetAttGAP_cifar100'
+        f = open(root+'/AlexNetGAP.log','w')
+        model_name = 'AlexNetAttGAP'
         alexattnet = model.AlexNetGAP(classes=100)
 
 elif sys.argv[2]=='shvn':
     lr=1e-6
-    dataset = data_loader.shvn_dataset(data_root+'/dataset/SHVN/',buffer_size=1,batch_size=128,classes=10,prefetch=3)
+    dataset = data_loader.shvn_dataset(data_path+'/SHVN/',buffer_size=1,batch_size=128,classes=10,prefetch=3)
     if sys.argv[1]=='0':
-        f = open(root+'/logs/AlexNet_shvn.log','w')
-        model_name = 'AlexNetAtt_shvn'
+        f = open(root+'/AlexNet.log','w')
+        model_name = 'AlexNetAtt'
         alexattnet = model.AlexNet(classes=10)
 
     if sys.argv[1]=='1':
-        f = open(root+'/logs/AlexNetAttDSSpatial_shvn.log','w')
-        model_name = 'AlexNetAttDSSpatial_shvn'
+        f = open(root+'/AlexNetAttDSSpatial.log','w')
+        model_name = 'AlexNetAttDSSpatial'
         alexattnet = model.AlexAttNet(classes=10)
 
     elif sys.argv[1]=='2':
-        f = open(root+'/logs/AlexNetAttPCSpatial_shvn.log','w')
-        model_name = 'AlexNetAttPCSpatial_shvn'
+        f = open(root+'/AlexNetAttPCSpatial.log','w')
+        model_name = 'AlexNetAttPCSpatial'
         alexattnet = model.AlexNetAttSpatial(classes=10)
 
     elif sys.argv[1]=='3':
-        f = open(root+'/logs/AlexNetGAP_shvn.log','w')
-        model_name = 'AlexNetAttGAP_shvn'
+        f = open(root+'/AlexNetGAP.log','w')
+        model_name = 'AlexNetAttGAP'
         alexattnet = model.AlexNetGAP(classes=10)
 
 
 elif sys.argv[2]=='cub':
     lr=1e-5
-    dataset = data_loader.cub_dataset(data_root+'/dataset/CUB_200_2011/',buffer_size=256,batch_size=128,classes=200,prefetch=3)
+    dataset = data_loader.cub_dataset(data_path+'/CUB_200_2011/',buffer_size=256,batch_size=128,classes=200,prefetch=3)
     if sys.argv[1]=='0':
-        f = open(root+'/logs/AlexNet_cub.log','w')
-        model_name = 'AlexNetAtt_cub'
+        f = open(root+'/AlexNet.log','w')
+        model_name = 'AlexNetAtt'
         alexattnet = model.AlexNet(classes=200)
 
     if sys.argv[1]=='1':
-        f = open(root+'/logs/AlexNetAttDSSpatial_cub.log','w')
-        model_name = 'AlexNetAttDSSpatial_cub'
+        f = open(root+'/AlexNetAttDSSpatial.log','w')
+        model_name = 'AlexNetAttDSSpatial'
         alexattnet = model.AlexAttNet(classes=200)
 
     elif sys.argv[1]=='2':
-        f = open(root+'/logs/AlexNetAttPCSpatial_cub.log','w')
-        model_name = 'AlexNetAttPCSpatial_cub'
+        f = open(root+'/AlexNetAttPCSpatial.log','w')
+        model_name = 'AlexNetAttPCSpatial'
         alexattnet = model.AlexNetAttSpatial(classes=200)
 
 def log_print(msg):

@@ -20,38 +20,43 @@ lr=0.0000
 opt = tf.train.AdamOptimizer(learning_rate=lr)
 
 dataset_id = sys.argv[1]
+model_dir = sys.argv[2]
+data_dir = sys.argv[3]
+result_dir = sys.argv[4]
 criterian = loss.softmax_cross_entropy()
 
 
 if dataset_id =='cifar10':
-    model_spatial_name = 'AlexNetAttPCSpatial_cifar10.h5'
-    model_spatial_2_name = 'AlexNetAttDSSpatial_cifar10.h5'
-    model_simple_name = 'AlexNetAttGAP_cifar10.h5'
+    model_spatial_name = 'AlexNetAttPCSpatial.h5'
+    model_spatial_2_name = 'AlexNetAttDSSpatial.h5'
+    model_simple_name = 'AlexNetAttGAP.h5'
     classes = 10
-    dataset = data_loader.cifar_10_dataset('./dataset/cifar-10-batches-py/',buffer_size=1,batch_size=128)
+    dataset = data_loader.cifar_10_dataset(data_dir+'/cifar-10-batches-py/', buffer_size=1, batch_size=128)
 
 elif dataset_id =='cifar100':
     classes = 100
-    model_spatial_name = 'AlexNetAttPCSpatial_cifar100.h5'
-    model_spatial_2_name = 'AlexNetAttDSSpatial_cifar100.h5'
-    model_simple_name = 'AlexNetAttGAP_cifar100.h5'
-    dataset = data_loader.cifar_100_dataset('./dataset/cifar-100-python/',buffer_size=1,batch_size=128)
+    model_spatial_name = 'AlexNetAttPCSpatial.h5'
+    model_spatial_2_name = 'AlexNetAttDSSpatial.h5'
+    model_simple_name = 'AlexNetAttGAP.h5'
+    dataset = data_loader.cifar_100_dataset(
+        data_dir+'/cifar-100-python/', buffer_size=1, batch_size=128)
 
 
 elif dataset_id =='shvn':
     classes = 10
-    model_spatial_name = 'AlexNetAttPCSpatial_shvn.h5'
-    model_spatial_2_name = 'AlexNetAttDSSpatial_shvn.h5'
-    model_simple_name = 'AlexNetAttGAP_shvn.h5'
-    dataset = data_loader.shvn_dataset('./dataset/SHVN/',buffer_size=1,batch_size=128,classes=10)
+    model_spatial_name = 'AlexNetAttPCSpatial.h5'
+    model_spatial_2_name = 'AlexNetAttDSSpatial.h5'
+    model_simple_name = 'AlexNetAttGAP.h5'
+    dataset = data_loader.shvn_dataset(
+        data_dir+'/SHVN/', buffer_size=1, batch_size=128, classes=10)
 
-output_gap_path = './output/%s/gap/'%(dataset_id)
+output_gap_path = '%s/%s/gap/' % (result_dir,dataset_id)
 os.makedirs(output_gap_path,exist_ok=True)
-output_spatial_path = './output/%s/spatialPC/'%(dataset_id)
+output_spatial_path = '%s/%s/spatialPC/' % (result_dir,dataset_id)
 os.makedirs(output_spatial_path,exist_ok=True)
-output_spatial_2_path = './output/%s/spatialDS/'%(dataset_id)
+output_spatial_2_path = '%s/%s/spatialDS/'%(result_dir, dataset_id)
 os.makedirs(output_spatial_2_path,exist_ok=True)
-model_root = './data_t/model/'
+model_root = model_dir+'/'
 
 cmap = plt.get_cmap('jet')
 (x,y)= next(dataset('train'))
